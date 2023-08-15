@@ -4,6 +4,7 @@ import { AiTwotoneHeart, AiOutlineSearch } from "react-icons/ai";
 import axios from "axios";
 
 function Home() {
+  const url = "https://perfect-hen-necklace.cyclic.cloud";
   const [books, setBook] = useState([]);
   const [search, setSearch] = useState("");
 
@@ -13,7 +14,7 @@ function Home() {
 
   const getBooks = async (search) => {
     try {
-      const res = await axios.get("http://localhost:3123");
+      const res = await axios.get(url);
       const pap = res.data.data;
       const response = await axios.get(
         `https://www.googleapis.com/books/v1/volumes?q=${
@@ -43,12 +44,12 @@ function Home() {
     const payload = {
       title,
     };
-    await axios.post("http://localhost:3123", payload);
+    await axios.post(url, payload);
     getBooks(search);
   };
 
   const deleteFavorite = async (title) => {
-    await axios.delete(`http://localhost:3123/${title}`);
+    await axios.delete(url + `/${title}`);
     getBooks(search);
   };
 
